@@ -1,0 +1,16 @@
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/bin/Debug/net6.0/BusinessLogic.deps.json
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/bin/Debug/net6.0/BusinessLogic.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/bin/Debug/net6.0/BusinessLogic.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/bin/Debug/net6.0/Entities.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/bin/Debug/net6.0/Entities.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.csproj.AssemblyReference.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.AssemblyInfoInputs.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.AssemblyInfo.cs
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.csproj.CoreCompileInputs.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.sourcelink.json
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/Business.CF5D6E35.Up2Date
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/refint/BusinessLogic.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/BusinessLogic.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/BusinessLogic/obj/Debug/net6.0/ref/BusinessLogic.dll

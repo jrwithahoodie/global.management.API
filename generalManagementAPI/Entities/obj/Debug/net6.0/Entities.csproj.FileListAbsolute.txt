@@ -1,0 +1,15 @@
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/bin/Debug/net6.0/Entities.deps.json
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/bin/Debug/net6.0/Entities.runtimeconfig.json
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/bin/Debug/net6.0/Entities.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/bin/Debug/net6.0/Entities.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.csproj.AssemblyReference.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.AssemblyInfoInputs.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.AssemblyInfo.cs
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.csproj.CoreCompileInputs.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.sourcelink.json
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/refint/Entities.dll
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/Entities.genruntimeconfig.cache
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/Entities/obj/Debug/net6.0/ref/Entities.dll
