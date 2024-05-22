@@ -8,9 +8,9 @@ namespace BusinessLogic.User
 {
     public interface IUserBll
     {
-        Entities.Models.User NewUser ();
+        Entities.Models.User NewUser (Entities.Models.User newUserData);
         List<Entities.Models.User> GetAllUsers();
-        Entities.Models.User DisableUser();
+        Entities.Models.User DisableUser(string userName);
         Entities.Models.User LogInUser();
     }
 }
