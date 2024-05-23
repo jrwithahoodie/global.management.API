@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogic.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace generalManagementAPI.Controllers
@@ -23,6 +24,7 @@ namespace generalManagementAPI.Controllers
         #endregion
 
         [HttpGet("getAllUsers")]
+        [Authorize]
         public IActionResult GetAllUsers(){
             try
             {

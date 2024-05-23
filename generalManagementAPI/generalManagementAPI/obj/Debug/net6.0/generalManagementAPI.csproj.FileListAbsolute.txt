@@ -83,3 +83,4 @@
 /Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/generalManagementAPI/bin/Debug/net6.0/Entities.dll
 /Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/generalManagementAPI/bin/Debug/net6.0/BusinessLogic.pdb
 /Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/generalManagementAPI/bin/Debug/net6.0/Entities.pdb
+/Users/jr/Documents/01.Development/03.General/global.management.API/generalManagementAPI/generalManagementAPI/bin/Debug/net6.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
