@@ -12,8 +12,9 @@ namespace Entities.AppContext
         #region DB Set
 
         public DbSet<User> Users { get; set;}
-        public DbSet<ActivityType> activityTypes{ get; set;}
-        public DbSet<UsersActivity> usersActivities{ get; set;}
+        public DbSet<ActivityType> ActivityTypes{ get; set;}
+        public DbSet<UsersActivity> UsersActivities{ get; set;}
+        public DbSet<Role> Roles { get; set;}
 
         #endregion
 
@@ -61,12 +62,16 @@ namespace Entities.AppContext
             var activityType3 = new ActivityType() { ActivityTypeId = 3, ActivityTypeName = "New user created"};
             var activityType4 = new ActivityType() { ActivityTypeId = 4, ActivityTypeName = "User verified"};
 
+            var role1 = new Role() { RoleId = 1, RoleName = "admin" };
+            var role2 = new Role() { RoleId = 2, RoleName = "user" };
+
             #endregion
 
             #region SeedData
 
             modelBuilder.Entity<ActivityType>().HasData(new ActivityType[] { activityType1, activityType2, activityType3, activityType4 });
-            
+            modelBuilder.Entity<Role>().HasData(new Role[] { role1, role2});
+
             #endregion
         }
         #endregion

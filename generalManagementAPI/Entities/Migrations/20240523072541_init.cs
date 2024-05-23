@@ -14,7 +14,7 @@ namespace Entities.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "activityTypes",
+                name: "ActivityTypes",
                 columns: table => new
                 {
                     ActivityTypeId = table.Column<int>(type: "int", nullable: false)
@@ -23,7 +23,20 @@ namespace Entities.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_activityTypes", x => x.ActivityTypeId);
+                    table.PrimaryKey("PK_ActivityTypes", x => x.ActivityTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,6 +53,7 @@ namespace Entities.Migrations
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateOfRegister = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
                     IsEmailConfirmed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -48,7 +62,7 @@ namespace Entities.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "usersActivities",
+                name: "UsersActivities",
                 columns: table => new
                 {
                     UsersActivityId = table.Column<int>(type: "int", nullable: false)
@@ -56,16 +70,16 @@ namespace Entities.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Timestamp = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
                     ActivityTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_usersActivities", x => x.UsersActivityId);
+                    table.PrimaryKey("PK_UsersActivities", x => x.UsersActivityId);
                 });
 
             migrationBuilder.InsertData(
-                table: "activityTypes",
+                table: "ActivityTypes",
                 columns: new[] { "ActivityTypeId", "ActivityTypeName" },
                 values: new object[,]
                 {
@@ -75,9 +89,18 @@ namespace Entities.Migrations
                     { 4, "User verified" }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "RoleName" },
+                values: new object[,]
+                {
+                    { 1, "admin" },
+                    { 2, "user" }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_activityTypes_ActivityTypeName",
-                table: "activityTypes",
+                name: "IX_ActivityTypes_ActivityTypeName",
+                table: "ActivityTypes",
                 column: "ActivityTypeName",
                 unique: true);
 
@@ -104,13 +127,16 @@ namespace Entities.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "activityTypes");
+                name: "ActivityTypes");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "usersActivities");
+                name: "UsersActivities");
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Entities.Migrations
                     b.HasIndex("ActivityTypeName")
                         .IsUnique();
 
-                    b.ToTable("activityTypes");
+                    b.ToTable("ActivityTypes");
 
                     b.HasData(
                         new
@@ -61,6 +61,35 @@ namespace Entities.Migrations
                         {
                             ActivityTypeId = 4,
                             ActivityTypeName = "User verified"
+                        });
+                });
+
+            modelBuilder.Entity("Entities.Models.Role", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleId");
+
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            RoleName = "admin"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            RoleName = "user"
                         });
                 });
 
@@ -96,6 +125,9 @@ namespace Entities.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -139,12 +171,12 @@ namespace Entities.Migrations
                     b.Property<int>("Timestamp")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("UsersActivityId");
 
-                    b.ToTable("usersActivities");
+                    b.ToTable("UsersActivities");
                 });
 #pragma warning restore 612, 618
         }

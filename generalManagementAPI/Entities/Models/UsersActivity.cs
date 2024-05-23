@@ -15,7 +15,7 @@ namespace Entities.Models
         public DateTime EndDate { get; set; }
         public int Timestamp { get; set; }
         [ForeignKey("UserId")]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [ForeignKey("ActivityTypeId")]
         public int ActivityTypeId { get; set; }
     }

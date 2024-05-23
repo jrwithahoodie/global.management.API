@@ -33,7 +33,7 @@ namespace generalManagementAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex);
+                return StatusCode(500, ex.Message);
             }
         }
         
@@ -48,7 +48,7 @@ namespace generalManagementAPI.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode (500, ex);
+                return StatusCode (500, ex.Message);
             }
         }
     }

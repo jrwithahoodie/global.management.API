@@ -20,14 +20,14 @@ namespace BusinessLogic.ActivityType
         #endregion
         public List<Entities.Models.ActivityType> GetAllActivityTypes()
         {
-            var activityTypeList = _context.activityTypes.ToList();
+            var activityTypeList = _context.ActivityTypes.ToList();
 
             return activityTypeList;
         }
 
         public Entities.Models.ActivityType NewActivityType(Entities.Models.ActivityType newActivityType)
         {
-            var result  = _context.activityTypes.Add(newActivityType);
+            var result  = _context.ActivityTypes.Add(newActivityType);
             _context.SaveChanges();
 
             return result.Entity;

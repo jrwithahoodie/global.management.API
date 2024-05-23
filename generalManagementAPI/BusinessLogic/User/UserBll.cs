@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BusinessLogic.UserActivity;
 using Entities.AppContext;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace BusinessLogic.User
@@ -15,12 +19,16 @@ namespace BusinessLogic.User
     {
         #region Fields
         private readonly Context _context;
+        private readonly UserActivityBll _userActivityBll;
+        private readonly IConfiguration _configuration;
         #endregion
 
         #region Constructors
-        public UserBll()
+        public UserBll(IConfiguration configuration)
         {
             _context = new Context();
+            _userActivityBll = new UserActivityBll();
+            _configuration = configuration;
         }
         #endregion
         public Entities.Models.User DisableUser(string userName)
@@ -35,13 +43,66 @@ namespace BusinessLogic.User
             return userList;
         }
 
-        public Entities.Models.User LogInUser()
+        public DTO.LogInResponseDTO LogInUser(DTO.LoginUserDTO loginData)
         {
-            throw new NotImplementedException();
+            var response = new DTO.LogInResponseDTO();
+            var user = new Entities.Models.User();
+
+            //Initializing the activity object for the db
+            var newUserActivity = new Entities.Models.UsersActivity();
+            newUserActivity.StartDate = DateTime.Now;
+            newUserActivity.ActivityTypeId = 1;
+
+            //Check if it is using an username or an email
+            if(loginData.UserOrMail.Contains("@"))
+            {
+                //Get the user by mail
+                user = _context.Users.Where(u => u.Email == loginData.UserOrMail).ToList().FirstOrDefault();
+            }
+            else
+            {
+                //Get the user by username
+                user = _context.Users.Where(u => u.UserName.ToUpper() == loginData.UserOrMail.ToUpper()).ToList().FirstOrDefault();
+            }
+
+            //Check if there is any user with this email
+            if(user == null)
+                throw new Exception("No existe ningún usuario con este correo");
+                
+            //Check if the user is verified
+            // if(!user.IsEmailConfirmed)
+            //     throw new Exception("Verifica el correo del usuario antes de iniciar sesión");
+
+            //Check the password
+            var auxPassword = decryptText(user.Password);
+
+            if(!loginData.Password.Equals(auxPassword))
+                throw new Exception("La contraseña es incorrecta");
+
+            //Assign values to the response
+            response.Username = user.UserName;
+            response.Email = user.Email;
+            response.PhoneNumber = user.PhoneNumber;
+            response.Name = user.Name;
+            response.Surname = user.Surname;
+            response.Token = GenerateToken(user.UserId.ToString(), "user").Result;
+
+            //End the activity
+            newUserActivity.EndDate = DateTime.UtcNow;
+            newUserActivity.UserId = user.UserId;
+            newUserActivity.Timestamp = ((int)(newUserActivity.EndDate - newUserActivity.StartDate).TotalSeconds);
+            _userActivityBll.NewUserActivity(newUserActivity);
+
+            return response;
         }
 
         public Entities.Models.User NewUser(Entities.Models.User newUserData)
         {
+            //Add new user activity
+            var newUserActivity = new Entities.Models.UsersActivity();
+            newUserActivity.StartDate = DateTime.Now;
+            newUserActivity.ActivityTypeId = 3;
+
             #region Check data
             var userList = _context.Users.ToList();
 
@@ -79,16 +140,52 @@ namespace BusinessLogic.User
             
             newUserData.DateOfRegister = DateTime.UtcNow;
             newUserData.IsEmailConfirmed = false;
-            
+            newUserData.RoleId = 1;
+
             //Encrypt password
             newUserData.Password = encryptText(newUserData.Password);
 
             var newUserResult = _context.Users.Add(newUserData);
             _context.SaveChanges();
 
+            newUserActivity.EndDate = DateTime.UtcNow;
+            newUserActivity.UserId = newUserResult.Entity.UserId;
+            newUserActivity.Timestamp = 0;
+            _userActivityBll.NewUserActivity(newUserActivity);
+
             return newUserResult.Entity;
         }
 
+        public bool ValidateToken(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]);
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters 
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+
+                    ValidateIssuer = true,
+                    ValidIssuer = _configuration["JwtConfig:Issuer"],
+
+                    ValidateAudience = true,
+                    ValidAudience = _configuration["JwtConfig:Audience"],
+
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+
+                }, out SecurityToken validatedToken);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #region Private Methods
         private bool checkPasswordFormat(string password)
         {
@@ -212,7 +309,31 @@ namespace BusinessLogic.User
                 throw;
             }
         }
-        
+        private async Task<string> GenerateToken(string userId, string role)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConfig:Secret"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, userId),                                 //Sujeto
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),              //Id del token
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),             //Fecha de emisión
+                new Claim(JwtRegisteredClaimNames.Iss, _configuration["JwtConfig:Issuer"]),     //Emisor
+                new Claim(JwtRegisteredClaimNames.Aud, _configuration["JwtConfig:Audience"]),   //AudienceJwtConfig
+                new Claim(ClaimTypes.Role, role)
+            };
+
+            var token = new JwtSecurityToken(
+                    issuer: _configuration["JwtConfig:Issuer"],
+                    audience: _configuration["JwtConfig:Audience"],
+                    claims: claims,
+                    expires: DateTime.UtcNow.AddHours(1),
+                    signingCredentials: credentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
         #endregion
     }
 }
