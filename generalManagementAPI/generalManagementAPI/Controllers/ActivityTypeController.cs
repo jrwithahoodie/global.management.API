@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLogic.ActivityType;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace generalManagementAPI.Controllers
@@ -23,6 +24,7 @@ namespace generalManagementAPI.Controllers
         #endregion
 
         [HttpGet("GetAllActivityType")]
+        [Authorize]
         public IActionResult GetAllActivityType()
         {
             try
@@ -37,7 +39,8 @@ namespace generalManagementAPI.Controllers
             }
         }
         
-        [HttpPost("register")]
+        [HttpPost("register/activitytype")]
+        [Authorize]
         public IActionResult NewActivityType(Entities.Models.ActivityType newActivityType)
         {
             try
