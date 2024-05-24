@@ -39,13 +39,13 @@ namespace generalManagementAPI.Controllers
             }
         }
         
-        [HttpPost("register/activitytype")]
+        [HttpPost("SetNewActivityType")]
         [Authorize]
-        public IActionResult NewActivityType(Entities.Models.ActivityType newActivityType)
+        public IActionResult NewActivityType([FromQuery]string activityTypeName = null)
         {
             try
             {
-                var result = _activityTypeBll.NewActivityType(newActivityType);
+                var result = _activityTypeBll.NewActivityType(activityTypeName);
 
                 return Ok(result);
             }

@@ -25,12 +25,20 @@ namespace BusinessLogic.ActivityType
             return activityTypeList;
         }
 
-        public Entities.Models.ActivityType NewActivityType(Entities.Models.ActivityType newActivityType)
+        public Entities.Models.ActivityType NewActivityType(string newActivityTypeName)
         {
-            var result  = _context.ActivityTypes.Add(newActivityType);
+            var activityTypeList = _context.ActivityTypes.Where(at => at.ActivityTypeName == newActivityTypeName).ToList().FirstOrDefault();
+
+            if(activityTypeList != null)
+                throw new Exception("Este tipo de actividad ya existe");
+            
+            var NewActivityTypeObj = new Entities.Models.ActivityType();
+            NewActivityTypeObj.ActivityTypeName = newActivityTypeName;
+
+            var newActivityType = _context.ActivityTypes.Add(NewActivityTypeObj);
             _context.SaveChanges();
 
-            return result.Entity;
+            return newActivityType.Entity;
         }
 
         public Entities.Models.ActivityType RemoveActivityType(int id)
