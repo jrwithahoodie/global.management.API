@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using BusinessLogic.ActivityType;
+using BusinessLogic.Role;
 using BusinessLogic.User;
 using BusinessLogic.UserActivity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -15,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUserBll, UserBll>();
 builder.Services.AddScoped<IActivityTypeBll, ActivityTypeBll>();
 builder.Services.AddScoped<IUserActivityBll, UserActivityBll>();
+builder.Services.AddScoped<IRoleBll, RoleBll>();
 
 #endregion
 
